@@ -89,31 +89,31 @@ export default function SearchService() {
   }
 
   return (
-    <div className="bg-pink-50 p-6 w-full">
-      <div className="flex items-center gap-2 mb-4">
-        <span className="text-rose-400 text-2xl">※</span>
-        <h1 className="text-rose-400 text-3xl font-light">Search Service</h1>
+    <div className="bg-pink-50 p-3 sm:p-4 md:p-6 w-full">
+      <div className="flex items-center gap-2 mb-3 sm:mb-4">
+        <span className="text-rose-400 text-xl sm:text-2xl">※</span>
+        <h1 className="text-rose-400 text-2xl sm:text-3xl font-light">Search Service</h1>
       </div>
 
-      <div className="border-b border-gray-300 mb-8 w-full"></div>
+      <div className="border-b border-gray-300 mb-4 sm:mb-6 md:mb-8 w-full"></div>
 
-      <div className="mb-12 w-full">
-        <div className="flex items-center gap-2 mb-4">
-          <ChevronRight className="text-rose-400" />
-          <h2 className="text-rose-400 text-2xl font-light">Keyword based Search</h2>
-          <HelpCircle className="text-amber-400 w-5 h-5" />
+      <div className="mb-6 sm:mb-8 md:mb-12 w-full">
+        <div className="flex items-center gap-2 mb-3 sm:mb-4">
+          <ChevronRight className="text-rose-400 w-4 h-4 sm:w-5 sm:h-5" />
+          <h2 className="text-rose-400 text-xl sm:text-2xl font-light">Keyword based Search</h2>
+          <HelpCircle className="text-amber-400 w-4 h-4 sm:w-5 sm:h-5" />
         </div>
 
-        <p className="text-gray-600 mb-4">
+        <p className="text-gray-600 mb-3 sm:mb-4 text-sm sm:text-base">
           Please search the <span className="text-rose-600 font-medium">dbPSP</span> database with one or multiple
           keywords to find the related information:
         </p>
 
-        <div className="border border-dashed border-blue-300 p-6 w-full">
+        <div className="border border-dashed border-blue-300 p-3 sm:p-4 md:p-6 w-full">
           <form onSubmit={handleSubmit}>
-            <div className="flex gap-4 mb-4 w-full">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-4 w-full">
               <select 
-                className="border border-gray-300 p-2 w-48"
+                className="border border-gray-300 p-2 w-full sm:w-48"
                 value={searchField}
                 onChange={(e) => setSearchField(e.target.value)}
               >
@@ -134,24 +134,24 @@ export default function SearchService() {
               />
             </div>
 
-            <div className="flex gap-4">
+            <div className="flex flex-wrap gap-2 sm:gap-4">
               <button 
                 type="button" 
-                className="bg-teal-600 text-white px-4 py-2 hover:bg-teal-700"
+                className="bg-teal-600 text-white px-3 sm:px-4 py-2 text-sm sm:text-base hover:bg-teal-700"
                 onClick={handleExampleClick}
               >
                 Example
               </button>
               <button 
                 type="button" 
-                className="bg-teal-600 text-white px-4 py-2 hover:bg-teal-700"
+                className="bg-teal-600 text-white px-3 sm:px-4 py-2 text-sm sm:text-base hover:bg-teal-700"
                 onClick={handleClearForm}
               >
                 Clear Form
               </button>
               <button 
                 type="submit" 
-                className="bg-teal-600 text-white px-4 py-2 hover:bg-teal-700"
+                className="bg-teal-600 text-white px-3 sm:px-4 py-2 text-sm sm:text-base hover:bg-teal-700"
               >
                 Submit
               </button>
@@ -160,14 +160,14 @@ export default function SearchService() {
 
           {(searchField === "Protein name" || searchField === "Uniprot ID") && searchResults.length > 0 && (
             <div className="mt-4 border border-gray-200 bg-white rounded shadow-sm">
-              <div className="p-2 bg-gray-50 border-b border-gray-200 text-sm font-medium text-gray-700">
+              <div className="p-2 bg-gray-50 border-b border-gray-200 text-xs sm:text-sm font-medium text-gray-700">
                 Search Results {isLoading && "(Loading...)"}
               </div>
-              <ul className="max-h-64 overflow-y-auto">
+              <ul className="max-h-48 sm:max-h-64 overflow-y-auto">
                 {searchResults.map((result) => (
                   <li 
                     key={result.HSNID} 
-                    className="p-3 border-b border-gray-100 hover:bg-blue-50 cursor-pointer"
+                    className="p-2 sm:p-3 border-b border-gray-100 hover:bg-blue-50 cursor-pointer text-xs sm:text-sm"
                     onClick={() => handleResultClick(result)}
                   >
                     <div className="font-medium">
@@ -177,7 +177,7 @@ export default function SearchService() {
                         result["UNIPROT ID"]
                       )}
                     </div>
-                    <div className="text-sm text-gray-500">
+                    <div className="text-xs sm:text-sm text-gray-500">
                       {searchField === "Protein name" ? (
                         `UniProt: ${result["UNIPROT ID"]}`
                       ) : (
@@ -193,44 +193,44 @@ export default function SearchService() {
       </div>
 
       <div className="w-full">
-        <div className="flex items-center gap-2 mb-4">
-          <ChevronRight className="text-rose-400" />
-          <h2 className="text-rose-400 text-2xl font-light">Sequence based Search</h2>
-          <HelpCircle className="text-amber-400 w-5 h-5" />
+        <div className="flex items-center gap-2 mb-3 sm:mb-4">
+          <ChevronRight className="text-rose-400 w-4 h-4 sm:w-5 sm:h-5" />
+          <h2 className="text-rose-400 text-xl sm:text-2xl font-light">Sequence based Search</h2>
+          <HelpCircle className="text-amber-400 w-4 h-4 sm:w-5 sm:h-5" />
         </div>
 
-        <p className="text-gray-600 mb-4">
+        <p className="text-gray-600 mb-3 sm:mb-4 text-sm sm:text-base">
           Please input a <span className="text-rose-600 font-medium">Phospho-peptide</span> ( with a character{" "}
           <span className="text-rose-600 font-medium">'p'</span> in front of{" "}
           <span className="text-rose-600 font-medium">p-site</span>) sequence:
         </p>
 
-        <div className="border border-dashed border-blue-300 p-6 w-full">
-          <div className="flex items-center gap-4 mb-4 w-full">
-            <label className="text-gray-600 font-medium w-40">Phospho-peptide:</label>
+        <div className="border border-dashed border-blue-300 p-3 sm:p-4 md:p-6 w-full">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4 mb-4 w-full">
+            <label className="text-gray-600 font-medium w-full sm:w-40 text-sm sm:text-base">Phospho-peptide:</label>
             <input
               type="text"
-              className="border border-gray-300 p-2 flex-1"
+              className="border border-gray-300 p-2 w-full flex-1"
               placeholder="Enter phospho-peptide sequence"
               value={phosphoPeptide}
               onChange={(e) => setPhosphoPeptide(e.target.value)}
             />
           </div>
 
-          <div className="flex gap-4 ml-40">
+          <div className="flex flex-wrap gap-2 sm:gap-4 sm:ml-40">
             <button 
-              className="bg-teal-600 text-white px-4 py-2 hover:bg-teal-700"
+              className="bg-teal-600 text-white px-3 sm:px-4 py-2 text-sm sm:text-base hover:bg-teal-700"
               onClick={() => setPhosphoPeptide("RRLpSISTESK")}
             >
               Example
             </button>
             <button 
-              className="bg-teal-600 text-white px-4 py-2 hover:bg-teal-700"
+              className="bg-teal-600 text-white px-3 sm:px-4 py-2 text-sm sm:text-base hover:bg-teal-700"
               onClick={() => setPhosphoPeptide("")}
             >
               Clear Form
             </button>
-            <button className="bg-teal-600 text-white px-4 py-2 hover:bg-teal-700">Submit</button>
+            <button className="bg-teal-600 text-white px-3 sm:px-4 py-2 text-sm sm:text-base hover:bg-teal-700">Submit</button>
           </div>
         </div>
       </div>
