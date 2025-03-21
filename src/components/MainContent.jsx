@@ -3,7 +3,7 @@ export default function MainContent() {
     <div className="flex-1 p-2 sm:p-4">
       <div className="border border-dashed border-gray-300 p-3 sm:p-6">
         <h1 className="text-2xl sm:text-3xl md:text-4xl text-center text-gray-600 mb-2">
-          Welcome to <span className="text-rose-700">HSNDB</span>
+          Welcome to <span className="text-[#097C7C]">HSNDB</span>
         </h1>
         <div className="border-b border-gray-400 mb-4 sm:mb-6"></div>
 
@@ -20,45 +20,45 @@ export default function MainContent() {
             <p className="text-sm sm:text-base text-gray-600 mb-3 sm:mb-4">
               Although eukaryotic protein phosphorylation has been extensively studied, only limited information is
               available for protein phosphorylation in prokaryotes. In contrast with eukaryotic phosphorylation that
-              mainly occurs on serine (<span className="text-rose-700">S</span>), threonine (
-              <span className="text-rose-700">T</span>), and tyrosine (<span className="text-rose-700">Y</span>),
+              mainly occurs on serine (<span className="text-[#097C7C]">S</span>), threonine (
+              <span className="text-[#097C7C]">T</span>), and tyrosine (<span className="text-[#097C7C]">Y</span>),
               prokaryotic phosphorylation also occurs on several other types of amino acids, including arginine (
-              <span className="text-rose-700">R</span>), histidine (<span className="text-rose-700">H</span>),
-              cysteine (<span className="text-rose-700">C</span>) and aspartic acid (
-              <span className="text-rose-700">D</span>) residues.
+              <span className="text-[#097C7C]">R</span>), histidine (<span className="text-[#097C7C]">H</span>),
+              cysteine (<span className="text-[#097C7C]">C</span>) and aspartic acid (
+              <span className="text-[#097C7C]">D</span>) residues.
             </p>
 
             <p className="text-sm sm:text-base text-gray-600 mb-3 sm:mb-4">
-              <span className="text-rose-700">HSNDB</span> 2.0 (human S-nitrosylation database) is an updated resource for annotating protein
+              <span className="text-[#097C7C]">HSNDB</span> 2.0 (human S-nitrosylation database) is an updated resource for annotating protein
               phosphorylation sites (p-sites) in prokaryotes (bacteria and archaea). It contains{" "}
-              <span className="text-rose-700">19,296</span> experimentally identified p-sites in{" "}
-              <span className="text-rose-700">8,586</span> proteins from <span className="text-rose-700">200</span>{" "}
+              <span className="text-[#097C7C]">19,296</span> experimentally identified p-sites in{" "}
+              <span className="text-[#097C7C]">8,586</span> proteins from <span className="text-[#097C7C]">200</span>{" "}
               prokaryotic organisms. In particular, detailed annotations for all the
             </p>
           </div>
 
           <div className="w-full lg:w-72">
-            <div className="bg-rose-700 text-white p-2 flex items-center mb-3 sm:mb-4">
-              <span className="ml-2 text-sm sm:text-base">HSNDB version 2.0 - 06/25/2019</span>
+            <div className="bg-[#097C7C] text-white text-center p-2 flex items-center mb-3 sm:mb-4">
+              <span className="ml-2 text-sm sm:text-base">HSNDB</span>
             </div>
 
             <div className="border-t border-b border-gray-300 py-2 mb-3 sm:mb-4">
               <h3 className="text-gray-600 mb-2 text-sm sm:text-base">▣ Features</h3>
               <ul className="list-none pl-2 sm:pl-4 space-y-1 text-xs sm:text-sm">
                 <li className="flex items-start">
-                  <span className="text-rose-700 mr-2">■</span>
+                  <span className="text-[#097C7C] mr-2">■</span>
                   Literature curation
                 </li>
                 <li className="flex items-start">
-                  <span className="text-rose-700 mr-2">■</span>
+                  <span className="text-[#097C7C] mr-2">■</span>
                   Public phosphorylation resources
                 </li>
                 <li className="flex items-start">
-                  <span className="text-rose-700 mr-2">■</span>
+                  <span className="text-[#097C7C] mr-2">■</span>
                   User-friendly website interface
                 </li>
                 <li className="flex items-start">
-                  <span className="text-rose-700 mr-2">■</span>
+                  <span className="text-[#097C7C] mr-2">■</span>
                   Additional annotation resources
                 </li>
 

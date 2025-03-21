@@ -19,8 +19,8 @@ export default function Navbar() {
               className="w-full h-full"
             >
               <div
-                className={`w-full h-full px-2 lg:px-4 xl:px-6 text-xs lg:text-sm flex items-center justify-center cursor-pointer transition-colors duration-200 hover:bg-rose-100 ${
-                  index === 0 ? "bg-rose-400 text-white hover:bg-rose-500" : ""
+                className={`w-full h-full px-2 lg:px-4 xl:px-6 text-xs lg:text-sm flex items-center justify-center cursor-pointer transition-colors duration-200 bg-[#F9F9ED] hover:bg-[#097C7C] ${
+                  index === 0 ? "bg-[#097C7C] text-black" : ""
                 }`}
               >
                 {item}
@@ -34,7 +34,7 @@ export default function Navbar() {
       <div className="md:hidden border-b border-gray-300">
         <div className="flex justify-between items-center h-12">
           <Link href="/" className="h-full w-24">
-            <div className="px-4 bg-rose-400 text-white h-full flex items-center justify-center transition-colors duration-200 hover:bg-rose-500">
+            <div className="px-4 bg-[#097C7C] text-white h-full flex items-center justify-center transition-colors duration-200 hover:bg-[#097C7C]">
               HOME
             </div>
           </Link>

@@ -2,11 +2,11 @@ import { HelpCircle } from "lucide-react"
 
 export default function BrowseService() {
   return (
-    <div className="bg-pink-50 p-4 sm:p-6">
+    <div className="bg-[#F9F9ED] p-4 sm:p-6">
       {/* Browse Header */}
       <div className="flex items-center gap-2 mb-4">
-        <span className="text-rose-400 text-xl sm:text-2xl">※</span>
-        <h1 className="text-rose-400 text-2xl sm:text-3xl font-light">Browse</h1>
+        <span className="text-[#097C7C] text-xl sm:text-2xl">※</span>
+        <h1 className="text-[#097C7C] text-2xl sm:text-3xl font-light">Browse</h1>
         <HelpCircle className="text-amber-400 w-4 h-4 sm:w-5 sm:h-5" />
       </div>
 
@@ -14,10 +14,10 @@ export default function BrowseService() {
 
       {/* Description */}
       <p className="text-gray-600 mb-8 sm:mb-12 text-sm sm:text-base leading-relaxed">
-        <span className="text-rose-600 font-medium">HSNDB</span> contains{" "}
-        <span className="text-rose-600 font-medium">19,296</span> experimentally identified p-sites in{" "}
-        <span className="text-rose-600 font-medium">8,586</span> proteins from{" "}
-        <span className="text-rose-600 font-medium">200</span> prokaryotic organisms. Users can browse the database by
+        <span className="text-[#097C7C] font-medium">HSNDB</span> contains{" "}
+        <span className="text-[#097C7C] font-medium">19,296</span> experimentally identified p-sites in{" "}
+        <span className="text-[#097C7C] font-medium">8,586</span> proteins from{" "}
+        <span className="text-[#097C7C]font-medium">200</span> prokaryotic organisms. Users can browse the database by
         phyla or by residue types.
       </p>
 
@@ -36,7 +36,7 @@ export default function BrowseService() {
               />
             </svg>
           </div>
-          <h2 className="text-gray-600 text-lg sm:text-xl font-medium group-hover:text-rose-600 transition-colors">
+          <h2 className="text-gray-600 text-lg sm:text-xl font-medium group-hover:text-[#097C7C] transition-colors">
             Browse by cancer causing
           </h2>
         </div>
@@ -61,7 +61,7 @@ export default function BrowseService() {
               </text>
             </svg>
           </div>
-          <h2 className="text-gray-600 text-lg sm:text-xl font-medium group-hover:text-rose-600 transition-colors">
+          <h2 className="text-gray-600 text-lg sm:text-xl font-medium group-hover:text-[#097C7C] transition-colors">
             Browse by non-cancer causing
           </h2>
         </div>

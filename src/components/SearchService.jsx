@@ -89,23 +89,23 @@ export default function SearchService() {
   }
 
   return (
-    <div className="bg-pink-50 p-3 sm:p-4 md:p-6 w-full">
+    <div className="bg-[#F9F9ED] p-3 sm:p-4 md:p-6 w-full">
       <div className="flex items-center gap-2 mb-3 sm:mb-4">
-        <span className="text-rose-400 text-xl sm:text-2xl">※</span>
-        <h1 className="text-rose-400 text-2xl sm:text-3xl font-light">Search Service</h1>
+        <span className="text-[#097C7C] text-xl sm:text-2xl">※</span>
+        <h1 className="text-[#097C7C] text-2xl sm:text-3xl font-light">Search Service</h1>
       </div>
 
       <div className="border-b border-gray-300 mb-4 sm:mb-6 md:mb-8 w-full"></div>
 
       <div className="mb-6 sm:mb-8 md:mb-12 w-full">
         <div className="flex items-center gap-2 mb-3 sm:mb-4">
-          <ChevronRight className="text-rose-400 w-4 h-4 sm:w-5 sm:h-5" />
-          <h2 className="text-rose-400 text-xl sm:text-2xl font-light">Keyword based Search</h2>
+          <ChevronRight className="text-[#097C7C] w-4 h-4 sm:w-5 sm:h-5" />
+          <h2 className="text-[#097C7C] text-xl sm:text-2xl font-light">Keyword based Search</h2>
           <HelpCircle className="text-amber-400 w-4 h-4 sm:w-5 sm:h-5" />
         </div>
 
         <p className="text-gray-600 mb-3 sm:mb-4 text-sm sm:text-base">
-          Please search the <span className="text-rose-600 font-medium">dbPSP</span> database with one or multiple
+          Please search the <span className="text-[#097C7C] font-medium">dbPSP</span> database with one or multiple
           keywords to find the related information:
         </p>
 
@@ -127,7 +127,7 @@ export default function SearchService() {
 
               <input 
                 type="text" 
-                className="border border-gray-300 p-2 flex-1" 
+                className="border border-gray-300 p-2 text-black flex-1" 
                 placeholder="Enter search keywords" 
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
@@ -194,15 +194,15 @@ export default function SearchService() {
 
       <div className="w-full">
         <div className="flex items-center gap-2 mb-3 sm:mb-4">
-          <ChevronRight className="text-rose-400 w-4 h-4 sm:w-5 sm:h-5" />
-          <h2 className="text-rose-400 text-xl sm:text-2xl font-light">Sequence based Search</h2>
+          <ChevronRight className="text-[#097C7C] w-4 h-4 sm:w-5 sm:h-5" />
+          <h2 className="text-[#097C7C] text-xl sm:text-2xl font-light">Sequence based Search</h2>
           <HelpCircle className="text-amber-400 w-4 h-4 sm:w-5 sm:h-5" />
         </div>
 
         <p className="text-gray-600 mb-3 sm:mb-4 text-sm sm:text-base">
-          Please input a <span className="text-rose-600 font-medium">Phospho-peptide</span> ( with a character{" "}
-          <span className="text-rose-600 font-medium">'p'</span> in front of{" "}
-          <span className="text-rose-600 font-medium">p-site</span>) sequence:
+          Please input a <span className="text-[#097C7C] font-medium">Phospho-peptide</span> ( with a character{" "}
+          <span className="text-[#097C7C] font-medium">'p'</span> in front of{" "}
+          <span className="text-[#097C7C] font-medium">p-site</span>) sequence:
         </p>
 
         <div className="border border-dashed border-blue-300 p-3 sm:p-4 md:p-6 w-full">

@@ -3,7 +3,7 @@ import Image from "next/image";
 export default function Header() {
   return (
     <header className="relative">
-      <div className="bg-pink-300 min-h-[6rem] py-4 flex items-center px-4 sm:px-6 md:h-24 md:py-0">
+      <div className="bg-[#F9F9ED] min-h-[6rem] py-4 flex items-center px-4 sm:px-6 md:h-24 md:py-0">
         <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
           <div className="flex justify-center">
             <Image
@@ -16,11 +16,11 @@ export default function Header() {
             />
           </div>
           <div className="flex flex-col text-center sm:text-left">
-            <div className="text-white text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-wider">HSNDB</div>
-            <div className="text-rose-700 text-sm sm:text-base md:text-lg lg:text-xl">
-              <span className="underline decoration-rose-700">H</span>uman
-              <span className="underline decoration-rose-700"> S</span>-Nitrosylation
-              <span className="underline decoration-rose-700"> D</span>atabase
+            <div className="text-[#097C7C] text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-wider">HSNDB</div>
+            <div className="text-[#097C7C] text-sm sm:text-base md:text-lg lg:text-xl">
+              <span className="underline decoration-[#097C7C]">H</span>uman
+              <span className="underline decoration-[#097C7C]"> S</span>-Nitrosylation
+              <span className="underline decoration-[#097C7C]"> D</span>atabase
             </div>
           </div>
         </div>
@@ -36,12 +36,12 @@ export default function Header() {
         <div className="absolute top-1 right-2 text-xs sm:text-sm md:top-2 md:right-4 italic">Version 2.0</div>
         <div className="absolute bottom-0 right-0 hidden sm:block">
           <div className="flex">
-            <div className="bg-rose-700 w-6 h-3 sm:w-8 sm:h-3 md:w-10 md:h-4"></div>
-            <div className="bg-rose-700 w-4 h-3 sm:w-5 sm:h-3 md:w-6 md:h-4 ml-1 sm:ml-2"></div>
+            <div className="bg-[#097C7C] w-6 h-3 sm:w-8 sm:h-3 md:w-10 md:h-4"></div>
+            <div className="bg-[#097C7C] w-4 h-3 sm:w-5 sm:h-3 md:w-6 md:h-4 ml-1 sm:ml-2"></div>
           </div>
         </div>
       </div>
-      <div className="bg-rose-700 h-1 sm:h-2"></div>
+      <div className="bg-[#097C7C] h-1 sm:h-2"></div>
     </header>
   );
 }

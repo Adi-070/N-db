@@ -33,13 +33,13 @@ export default function Sidebar() {
           fixed lg:static inset-y-0 left-0 z-20
           transform ${isOpen ? 'translate-x-0' : '-translate-x-full'} 
           lg:translate-x-0 transition-transform duration-200 ease-in-out
-          w-64 bg-blue-50 p-2 overflow-y-auto h-full
+          w-64 bg-[#F9F9ED] p-2 overflow-y-auto h-full
         `}
       >
         <div className="bg-blue-100 p-2 mb-2 text-sm">PRODUCTS OF CUCKOO</div>
 
         {sidebarItems.map((item, index) => (
-          <div key={index} className="bg-rose-700 text-white p-2 mb-2 flex items-center text-sm cursor-pointer hover:bg-rose-800">
+          <div key={index} className="bg-[#097C7C] text-white p-2 mb-2 flex items-center text-sm cursor-pointer hover:bg-[#097C7C]">
             <Plus className="w-4 h-4 mr-2" />
             {item}
           </div>
