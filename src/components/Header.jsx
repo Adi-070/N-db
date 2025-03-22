@@ -24,7 +24,7 @@ export default function Header() {
             </div>
           </div>
         </div>
-        <div className="ml-auto hidden sm:block">
+        {/* <div className="ml-auto hidden sm:block">
           <Image 
             src="/placeholder.svg?height=100&width=100" 
             alt="Phosphorylation diagram" 
@@ -33,7 +33,7 @@ export default function Header() {
             className="w-14 h-14 md:w-20 md:h-20 lg:w-24 lg:h-24"
           />
         </div>
-        <div className="absolute top-1 right-2 text-xs sm:text-sm md:top-2 md:right-4 italic">Version 2.0</div>
+        <div className="absolute top-1 right-2 text-xs sm:text-sm md:top-2 md:right-4 italic">Version 2.0</div> */}
         <div className="absolute bottom-0 right-0 hidden sm:block">
           <div className="flex">
             <div className="bg-[#097C7C] w-6 h-3 sm:w-8 sm:h-3 md:w-10 md:h-4"></div>

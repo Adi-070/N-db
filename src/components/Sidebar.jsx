@@ -51,15 +51,7 @@ export default function Sidebar() {
           </div>
           <div className="text-xs mt-2">Last update: Jun 1, 2019</div>
 
-          <div className="mt-4 flex justify-center">
-            <Image 
-              src="/placeholder.svg?height=200&width=200" 
-              alt="Protein structure" 
-              width={160} 
-              height={160}
-              className="w-32 h-32 sm:w-40 sm:h-40 lg:w-48 lg:h-48"
-            />
-          </div>
+        
         </div>
       </div>
     </>
