@@ -89,7 +89,7 @@ export default function SearchService() {
   }
 
   return (
-    <div className="bg-[#F9F9ED] p-3 sm:p-4 md:p-6 w-full">
+    <div className="bg-[#F9F9ED] p-3 sm:p-4 md:p-6 w-full text-black">
       <div className="flex items-center gap-2 mb-3 sm:mb-4">
         <span className="text-[#097C7C] text-xl sm:text-2xl">※</span>
         <h1 className="text-[#097C7C] text-2xl sm:text-3xl font-light">Search Service</h1>
@@ -113,7 +113,7 @@ export default function SearchService() {
           <form onSubmit={handleSubmit}>
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-4 w-full">
               <select 
-                className="border border-gray-300 p-2 w-full sm:w-48"
+                className="border border-gray-300 p-2 w-full sm:w-48 text-black bg-white"
                 value={searchField}
                 onChange={(e) => setSearchField(e.target.value)}
               >
@@ -127,7 +127,7 @@ export default function SearchService() {
 
               <input 
                 type="text" 
-                className="border border-gray-300 p-2 text-black flex-1" 
+                className="border border-gray-300 p-2 text-black bg-white flex-1" 
                 placeholder="Enter search keywords" 
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
@@ -167,7 +167,7 @@ export default function SearchService() {
                 {searchResults.map((result) => (
                   <li 
                     key={result.HSNID} 
-                    className="p-2 sm:p-3 border-b border-gray-100 hover:bg-blue-50 cursor-pointer text-xs sm:text-sm"
+                    className="p-2 sm:p-3 border-b border-gray-100 hover:bg-blue-50 cursor-pointer text-xs sm:text-sm text-black"
                     onClick={() => handleResultClick(result)}
                   >
                     <div className="font-medium">
@@ -210,7 +210,7 @@ export default function SearchService() {
             <label className="text-gray-600 font-medium w-full sm:w-40 text-sm sm:text-base">Phospho-peptide:</label>
             <input
               type="text"
-              className="border border-gray-300 p-2 w-full flex-1"
+              className="border border-gray-300 p-2 w-full flex-1 text-black bg-white"
               placeholder="Enter phospho-peptide sequence"
               value={phosphoPeptide}
               onChange={(e) => setPhosphoPeptide(e.target.value)}
