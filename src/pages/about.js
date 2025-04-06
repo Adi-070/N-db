@@ -9,7 +9,7 @@ export default function DbPspWebsite() {
       <Header />
       <Navbar />
       <div className="flex">
-        <Sidebar />
+        {/* <Sidebar /> */}
       </div>
     </div>
   );

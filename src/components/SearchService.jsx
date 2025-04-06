@@ -105,7 +105,7 @@ export default function SearchService() {
         </div>
 
         <p className="text-gray-600 mb-3 sm:mb-4 text-sm sm:text-base">
-          Please search the <span className="text-[#097C7C] font-medium">dbPSP</span> database with one or multiple
+          Please search the <span className="text-[#097C7C] font-medium">HSNDB</span> database with one or multiple
           keywords to find the related information:
         </p>
 
