@@ -11,8 +11,8 @@ export default function SearchService() {
 
   // Live search effect
   useEffect(() => {
-    // Only perform search if query is at least 2 characters and field is "Protein name" or "Uniprot ID"
-    if (searchQuery.length >= 2 && (searchField === "Protein name" || searchField === "Uniprot ID")) {
+    // Only perform search if query is at least 2 characters and field is in the list of supported live search fields
+    if (searchQuery.length >= 2 && ["Protein name", "Uniprot ID", "Gene Name", "Cancer type"].includes(searchField)) {
       performLiveSearch()
     } else {
       setSearchResults([])
@@ -23,9 +23,15 @@ export default function SearchService() {
     setIsLoading(true)
     
     try {
+      // Special handling for Cancer type search
+      if (searchField === "Cancer type") {
+        await performCancerTypeSearch()
+        return
+      }
+      
       let query = supabase
-        .from('proteins')
-        .select('HSNID, "PROTEIN NAME", "UNIPROT ID"')
+        .from('proteins_final')
+        .select('HSNID, "PROTEIN NAME", "UNIPROT ID", "GENE NAME", "TOTAL SITES"')
       
       // Search based on selected field
       if (searchField === "Protein name") {
@@ -34,6 +40,12 @@ export default function SearchService() {
       } else if (searchField === "Uniprot ID") {
         query = query.ilike('"UNIPROT ID"', `%${searchQuery}%`)
         query = query.order('"UNIPROT ID"', { ascending: true })
+      } else if (searchField === "Gene Name") {
+        query = query.ilike('"GENE NAME"', `%${searchQuery}%`)
+        query = query.order('"GENE NAME"', { ascending: true })
+      } else if (searchField === "No of N sites") {
+        query = query.eq('"TOTAL SITES"', searchQuery)
+        query = query.order('"PROTEIN NAME"', { ascending: true })
       }
       
       // Limit results for better performance
@@ -55,6 +67,82 @@ export default function SearchService() {
     }
   }
 
+  // Special function to handle Cancer type search across tables
+  const performCancerTypeSearch = async () => {
+    try {
+      // Step 1: Find UniProt IDs and cancer types from cancer_positions for the given cancer search
+      const { data: cancerData, error: cancerError } = await supabase
+        .from('cancer_positions')
+        .select('"UNIPROT ID", "CANCER TYPE"')
+        .ilike('"CANCER TYPE"', `%${searchQuery}%`)
+        .order('"CANCER TYPE"', { ascending: true })
+        .limit(30) // Increased limit to get more cancer types
+      
+      if (cancerError) {
+        console.error('Error querying cancer_positions:', cancerError)
+        setSearchResults([])
+        return
+      }
+
+      if (!cancerData || cancerData.length === 0) {
+        setSearchResults([])
+        return
+      }
+      
+      // Create a map of UniProt IDs to their associated cancer types
+      const uniprotToCancerTypes = {}
+      
+      cancerData.forEach(item => {
+        const uniprotId = item['UNIPROT ID']
+        const cancerType = item['CANCER TYPE']
+        
+        if (!uniprotToCancerTypes[uniprotId]) {
+          uniprotToCancerTypes[uniprotId] = new Set()
+        }
+        
+        uniprotToCancerTypes[uniprotId].add(cancerType)
+      })
+      
+      const uniqueUniprotIds = Object.keys(uniprotToCancerTypes)
+      
+      if (uniqueUniprotIds.length === 0) {
+        setSearchResults([])
+        return
+      }
+      
+      // Step 2: Get protein information for these UniProt IDs
+      const { data: proteinData, error: proteinError } = await supabase
+        .from('proteins_final')
+        .select('HSNID, "PROTEIN NAME", "UNIPROT ID", "GENE NAME", "TOTAL SITES"')
+        .in('"UNIPROT ID"', uniqueUniprotIds)
+        .order('"PROTEIN NAME"', { ascending: true })
+        .limit(10)
+      
+      if (proteinError) {
+        console.error('Error querying proteins_final:', proteinError)
+        setSearchResults([])
+        return
+      }
+      
+      // Step 3: Enhance results with cancer type information
+      const enhancedResults = proteinData.map(protein => {
+        const uniprotId = protein['UNIPROT ID']
+        const cancerTypes = Array.from(uniprotToCancerTypes[uniprotId] || [])
+        
+        return {
+          ...protein,
+          CANCER_TYPES: cancerTypes
+        }
+      })
+      
+      setSearchResults(enhancedResults || [])
+      
+    } catch (err) {
+      console.error('Unexpected error during cancer type search:', err)
+      setSearchResults([])
+    }
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault()
     if (searchQuery.trim()) {
@@ -69,6 +157,10 @@ export default function SearchService() {
       setSearchQuery("BRCA")
     } else if (searchField === "Uniprot ID") {
       setSearchQuery("P04637")
+    } else if (searchField === "No of N sites") {
+      setSearchQuery("5")
+    } else if (searchField === "Cancer type") {
+      setSearchQuery("Breast")
     } else {
       setSearchQuery("example")
     }
@@ -85,6 +177,51 @@ export default function SearchService() {
       setSearchQuery(result["PROTEIN NAME"])
     } else if (searchField === "Uniprot ID") {
       setSearchQuery(result["UNIPROT ID"])
+    } else if (searchField === "Gene Name") {
+      setSearchQuery(result["GENE NAME"])
+    } else if (searchField === "Cancer type") {
+      // Keep the current search query as is
+    }
+  }
+
+  // Function to display appropriate secondary info in search results
+  const getSecondaryInfo = (result) => {
+    switch(searchField) {
+      case "Protein name":
+        return `UniProt: ${result["UNIPROT ID"]} | Gene: ${result["GENE NAME"] || "N/A"}`
+      case "Uniprot ID":
+        return `Protein: ${result["PROTEIN NAME"]} | Gene: ${result["GENE NAME"] || "N/A"}`
+      case "Gene Name":
+        return `Protein: ${result["PROTEIN NAME"]} | UniProt: ${result["UNIPROT ID"]}`
+      case "No of N sites":
+        return `Protein: ${result["PROTEIN NAME"]} | Sites: ${result["TOTAL SITES"] || "0"}`
+      case "Cancer type":
+        return `Protein: ${result["PROTEIN NAME"]} | UniProt: ${result["UNIPROT ID"]}`
+      default:
+        return `Protein: ${result["PROTEIN NAME"]}`
+    }
+  }
+
+  // Function to get primary display text for search results
+  const getPrimaryDisplayText = (result) => {
+    switch(searchField) {
+      case "Protein name":
+        return result["PROTEIN NAME"]
+      case "Uniprot ID":
+        return result["UNIPROT ID"]
+      case "Gene Name":
+        return result["GENE NAME"]
+      case "No of N sites":
+        return `${result["TOTAL SITES"] || "0"} sites - ${result["PROTEIN NAME"]}`
+      case "Cancer type": {
+        // Show the first cancer type or "Unknown" if none
+        const cancerTypes = result.CANCER_TYPES || []
+        return cancerTypes.length > 0 
+          ? `${cancerTypes[0]} - ${result["PROTEIN NAME"]}`
+          : `Unknown cancer - ${result["PROTEIN NAME"]}`
+      }
+      default:
+        return result["PROTEIN NAME"]
     }
   }
 
@@ -158,7 +295,7 @@ export default function SearchService() {
             </div>
           </form>
 
-          {(searchField === "Protein name" || searchField === "Uniprot ID") && searchResults.length > 0 && (
+          {["Protein name", "Uniprot ID", "Gene Name", "No of N sites", "Cancer type"].includes(searchField) && searchResults.length > 0 && (
             <div className="mt-4 border border-gray-200 bg-white rounded shadow-sm">
               <div className="p-2 bg-gray-50 border-b border-gray-200 text-xs sm:text-sm font-medium text-gray-700">
                 Search Results {isLoading && "(Loading...)"}
@@ -171,19 +308,19 @@ export default function SearchService() {
                     onClick={() => handleResultClick(result)}
                   >
                     <div className="font-medium">
-                      {searchField === "Protein name" ? (
-                        result["PROTEIN NAME"]
-                      ) : (
-                        result["UNIPROT ID"]
-                      )}
+                      {getPrimaryDisplayText(result)}
                     </div>
                     <div className="text-xs sm:text-sm text-gray-500">
-                      {searchField === "Protein name" ? (
-                        `UniProt: ${result["UNIPROT ID"]}`
-                      ) : (
-                        `Protein: ${result["PROTEIN NAME"]}`
-                      )}
+                      {getSecondaryInfo(result)}
                     </div>
+                    {/* Display all cancer types if in cancer type search */}
+                    {searchField === "Cancer type" && result.CANCER_TYPES && result.CANCER_TYPES.length > 0 && (
+                      <div className="mt-1 text-xs text-blue-600">
+                        {result.CANCER_TYPES.length > 1 
+                          ? `Cancer types: ${result.CANCER_TYPES.join(', ')}` 
+                          : null}
+                      </div>
+                    )}
                   </li>
                 ))}
               </ul>

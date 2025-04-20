@@ -4,7 +4,7 @@ import { Menu, X } from 'lucide-react';
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const navItems = ["HOME", "BROWSE", "SEARCH", "ABOUT","DOWNLOAD", "USER GUIDE", "LINKS", "STATISTICS", "CONTACT"];
+  const navItems = ["BROWSE", "HOME", "REFINED SEARCH", "ABOUT", "STATISTICS", "CONTACT"];
 
   return (
     <>
