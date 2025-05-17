@@ -1,4 +1,64 @@
+import { useState, useEffect } from "react"
+import { supabase } from "@/supabaseClient"
+import { Search } from "lucide-react"
+
 export default function MainContent() {
+  const [searchQuery, setSearchQuery] = useState("")
+  const [searchResults, setSearchResults] = useState([])
+  const [isLoading, setIsLoading] = useState(false)
+  const [showResults, setShowResults] = useState(false)
+
+  // Live search effect
+  useEffect(() => {
+    if (searchQuery.length >= 2) {
+      performSearch()
+    } else {
+      setSearchResults([])
+      setShowResults(false)
+    }
+  }, [searchQuery])
+
+  const performSearch = async () => {
+    setIsLoading(true)
+    
+    try {
+      // Search for both protein name and uniprot ID
+      const { data, error } = await supabase
+        .from('proteins_final')
+        .select('HSNID, "PROTEIN NAME", "UNIPROT ID", "GENE NAME", "TOTAL SITES"')
+        .or(`"PROTEIN NAME".ilike.%${searchQuery}%,"UNIPROT ID".ilike.%${searchQuery}%`)
+        .order('"PROTEIN NAME"', { ascending: true })
+        .limit(10)
+      
+      if (error) {
+        console.error('Error performing search:', error)
+        setSearchResults([])
+      } else {
+        setSearchResults(data || [])
+        setShowResults(true)
+      }
+    } catch (err) {
+      console.error('Unexpected error during search:', err)
+      setSearchResults([])
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    if (searchQuery.trim()) {
+      performSearch()
+    }
+  }
+
+  const handleResultClick = (result) => {
+    setSearchQuery(result["PROTEIN NAME"])
+    setShowResults(false)
+    // Here you would typically navigate to the protein detail page
+    // For example: router.push(`/protein/${result.HSNID}`)
+  }
+
   return (
     <div className="flex-1 p-2 sm:p-4">
       <div className="border border-dashed border-gray-300 p-3 sm:p-6">
@@ -6,8 +66,65 @@ export default function MainContent() {
           Welcome to <span className="text-[#097C7C]">HSNDB</span>
         </h1>
         <div className="border-b border-gray-400 mb-4 sm:mb-6"></div>
+        <div className="w-full bg-[#097C7C] flex flex-col items-center py-8 px-4">
+      <h1 className="text-white text-2xl md:text-3xl font-medium mb-6 text-center">
+        Perform a quick search to query the database
+      </h1>
 
-        <div className="flex flex-col lg:flex-row gap-4 sm:gap-6">
+      <div className="w-full max-w-3xl">
+        <form onSubmit={handleSubmit} className="relative flex gap-2">
+          <input
+            type="text"
+            className="flex-1 border-0 rounded-md px-4 py-3 text-gray-800 bg-white placeholder-gray-400 shadow-sm focus:outline-none"
+            placeholder="Search by protein name or UniProt ID..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+          <button
+            type="submit"
+            className="bg-white text-[#5a7d5a] px-5 py-3 rounded-md hover:bg-gray-50 transition-colors duration-200 font-medium"
+          >
+            Search
+          </button>
+        </form>
+
+        {/* Search Results Dropdown */}
+        {showResults && searchResults.length > 0 && (
+          <div className="absolute z-10 mt-2 w-full max-w-3xl border border-gray-200 bg-white rounded-md shadow-lg overflow-hidden">
+            <div className="p-3 bg-gray-50 border-b border-gray-200 text-sm font-medium text-gray-700 flex justify-between items-center">
+              <span>Search Results</span>
+              {isLoading && (
+                <span className="text-xs bg-gray-200 text-gray-700 py-1 px-2 rounded-full">Loading...</span>
+              )}
+            </div>
+            <ul className="max-h-72 overflow-y-auto divide-y divide-gray-100">
+              {searchResults.map((result) => (
+                <li
+                  key={result.HSNID}
+                  className="hover:bg-gray-50 cursor-pointer transition-colors duration-150"
+                  onClick={() => handleResultClick(result)}
+                >
+                  <div className="p-4">
+                    <div className="font-medium text-gray-900">{result["PROTEIN NAME"]}</div>
+                    <div className="text-sm text-gray-500 mt-1 flex flex-wrap gap-x-4">
+                      <span className="inline-flex items-center">
+                        <span className="font-medium text-[#5a7d5a] mr-1">UniProt:</span>
+                        {result["UNIPROT ID"]}
+                      </span>
+                      <span className="inline-flex items-center">
+                        <span className="font-medium text-[#5a7d5a] mr-1">Gene:</span>
+                        {result["GENE NAME"] || "N/A"}
+                      </span>
+                    </div>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </div>
+    </div>
+        <div className="flex flex-col lg:flex-row gap-4 mt-2 sm:gap-6">
           <div className="flex-1">
             <p className="text-sm sm:text-base text-gray-600 mb-3 sm:mb-4">
               As one of the most ubiquitous and important protein post-translational modifications (PTMs) with
