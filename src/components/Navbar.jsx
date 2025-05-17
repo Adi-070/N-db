@@ -1,10 +1,28 @@
 import { useState } from 'react';
 import Link from 'next/link';
-import { Menu, X } from 'lucide-react';
+import {
+  Menu,
+  X,
+  Search,
+  Home,
+  Filter,
+  Info,
+  BarChart2,
+  Mail
+} from 'lucide-react';
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navItems = ["BROWSE", "HOME", "REFINED SEARCH", "ABOUT", "STATISTICS", "CONTACT"];
+
+  const iconMap = {
+    BROWSE: <Search size={16} className="mr-2" />,
+    HOME: <Home size={16} className="mr-2" />,
+    "REFINED SEARCH": <Filter size={16} className="mr-2" />,
+    ABOUT: <Info size={16} className="mr-2" />,
+    STATISTICS: <BarChart2 size={16} className="mr-2" />,
+    CONTACT: <Mail size={16} className="mr-2" />,
+  };
 
   return (
     <>
@@ -25,7 +43,7 @@ export default function Navbar() {
                     : "bg-[#F9F9ED] text-black hover:bg-[#097C7C] hover:text-white"
                 }`}
               >
-                {item}
+                {iconMap[item]} {item}
               </div>
             </Link>
           );
@@ -37,7 +55,7 @@ export default function Navbar() {
         <div className="flex justify-between items-center h-12">
           <Link href="/" className="h-full w-24">
             <div className="px-4 bg-[#097C7C] text-white h-full flex items-center justify-center transition-colors duration-200 hover:bg-[#065e5e]">
-              HOME
+              <Home size={16} className="mr-2" /> HOME
             </div>
           </Link>
           <button 
@@ -64,7 +82,7 @@ export default function Navbar() {
                   <div 
                     className="w-full px-4 py-3 border-b border-gray-100 transition-colors duration-200 hover:bg-rose-100 text-black text-sm flex items-center"
                   >
-                    {item}
+                    {iconMap[item]} {item}
                   </div>
                 </Link>
               );

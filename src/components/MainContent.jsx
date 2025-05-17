@@ -2,7 +2,7 @@ export default function MainContent() {
   return (
     <div className="flex-1 p-2 sm:p-4">
       <div className="border border-dashed border-gray-300 p-3 sm:p-6">
-        <h1 className="text-2xl sm:text-3xl md:text-4xl text-center text-gray-600 mb-2">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl text-center text-gray-600 mb-2 md:mr-80">
           Welcome to <span className="text-[#097C7C]">HSNDB</span>
         </h1>
         <div className="border-b border-gray-400 mb-4 sm:mb-6"></div>
