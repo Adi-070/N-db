@@ -24,11 +24,11 @@ export default function MainContent() {
     try {
       // Search for both protein name and uniprot ID
       const { data, error } = await supabase
-        .from('proteins_final')
-        .select('HSNID, "PROTEIN NAME", "UNIPROT ID", "GENE NAME", "TOTAL SITES"')
-        .or(`"PROTEIN NAME".ilike.%${searchQuery}%,"UNIPROT ID".ilike.%${searchQuery}%`)
-        .order('"PROTEIN NAME"', { ascending: true })
-        .limit(10)
+      .from('proteins_final')
+      .select('HSNID, "PROTEIN NAME", "UNIPROT ID", "GENE NAME", "TOTAL SITES"')
+      .or(`"PROTEIN NAME".ilike.%${searchQuery}%,"UNIPROT ID".ilike.%${searchQuery}%,"GENE NAME".ilike.%${searchQuery}%`)
+      .order('"PROTEIN NAME"', { ascending: true })
+      .limit(10)
       
       if (error) {
         console.error('Error performing search:', error)
@@ -76,7 +76,7 @@ export default function MainContent() {
           <input
             type="text"
             className="flex-1 border-0 rounded-md px-4 py-3 text-gray-800 bg-white placeholder-gray-400 shadow-sm focus:outline-none"
-            placeholder="Search by protein name or UniProt ID..."
+            placeholder="Search by protein name, UniProt ID or Gene name..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
