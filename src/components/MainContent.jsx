@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { supabase } from "@/supabaseClient"
 import { Search } from "lucide-react"
 
@@ -7,6 +7,19 @@ export default function MainContent() {
   const [searchResults, setSearchResults] = useState([])
   const [isLoading, setIsLoading] = useState(false)
   const [showResults, setShowResults] = useState(false)
+  const videoRef = useRef(null);
+
+  const handleMouseEnter = () => {
+    if (videoRef.current) {
+      videoRef.current.pause();
+    }
+  };
+
+  const handleMouseLeave = () => {
+    if (videoRef.current) {
+      videoRef.current.play();
+    }
+  };
 
   // Live search effect
   useEffect(() => {
@@ -160,70 +173,26 @@ export default function MainContent() {
             </div>
 
             <div className="border-t border-b border-gray-300 py-2 mb-3 sm:mb-4">
-              <h3 className="text-gray-600 mb-2 text-sm sm:text-base">▣ Features</h3>
-              <ul className="list-none pl-2 sm:pl-4 space-y-1 text-xs sm:text-sm">
-                <li className="flex items-start">
-                  <span className="text-[#097C7C] mr-2">■</span>
-                  Literature curation
-                </li>
-                <li className="flex items-start">
-                  <span className="text-[#097C7C] mr-2">■</span>
-                  Public phosphorylation resources
-                </li>
-                <li className="flex items-start">
-                  <span className="text-[#097C7C] mr-2">■</span>
-                  User-friendly website interface
-                </li>
-                <li className="flex items-start">
-                  <span className="text-[#097C7C] mr-2">■</span>
-                  Additional annotation resources
-                </li>
-
-                <ul className="list-none pl-4 sm:pl-6 space-y-1 mt-1 text-xs sm:text-sm">
-                  <li className="flex items-start">
-                    <span className="text-gray-500 mr-2">○</span>
-                    Total (88)
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-gray-500 mr-2">○</span>
-                    Taxonomy annotation (7)
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-gray-500 mr-2">○</span>
-                    Genome annotation (10)
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-gray-500 mr-2">○</span>
-                    Function annotation (17)
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-gray-500 mr-2">○</span>
-                    Transcriptional regulation (8)
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-gray-500 mr-2">○</span>
-                    Sequence and structure information (5)
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-gray-500 mr-2">○</span>
-                    Family and domain annotation (13)
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-gray-500 mr-2">○</span>
-                    Interaction (14)
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-gray-500 mr-2">○</span>
-                    Orthologous information (10)
-                  </li>
-                </ul>
-              </ul>
+              <h3 className="text-gray-600 mb-2 text-sm sm:text-base">Example:</h3>
+              <div className="mb-3 sm:mb-4">
+              <video
+ ref={videoRef}
+ className="w-full rounded-md shadow-md"
+ loop
+ muted
+ autoPlay
+ preload="metadata"
+ src="/protein_demo.mp4"
+ type="video/mp4"
+ onMouseEnter={handleMouseEnter}
+ onMouseLeave={handleMouseLeave}
+>
+  Your browser does not support the video tag.
+</video>
+</div>
+<h3 className="text-gray-600 mb-2 text-sm sm:text-base">PDB ID : 1A00, UNIPROT ID : P69905</h3>
             </div>
           </div>
-        </div>
-
-        <div className="mt-3 sm:mt-4">
-          <h3 className="text-gray-600 mb-2 text-sm sm:text-base">Example:</h3>
         </div>
       </div>
     </div>
